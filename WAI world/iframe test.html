@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The iframe element</h1>
+
+<iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials">
+	<p>error</p>
+</iframe>
+<script type="text/javascript">
+//<![CDATA[
+    if (window.top !== window.self) {
+        document.write = "";
+        window.top.location = window.self.location;
+        setTimeout(function () {
+            document.body.innerHTML = '';
+        }, 1);
+        window.self.onload = function (evt) {
+            document.body.innerHTML = '';
+        }; 
+    }
+//]]>
+</script>
+</body>
+</html>

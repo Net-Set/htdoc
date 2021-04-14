@@ -1,0 +1,177 @@
+<?php
+include "header.php";
+?>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Loan Installment Form </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="header.php">Home</a></li>
+              <li class="breadcrumb-item active">Loan Installment Details</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-9">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Loan Installment Details</h3>
+              </div>
+              <!-- card-header -->
+              <!-- form start -->
+              <script>
+                         function validation()
+                         {
+                             var text=/^[0-9]+$/;
+                             var Amount = document.getElementById('amount').value;
+                             var Idate = document.getElementById('idate').value;
+                             var Total = document.getElementById('to').value;
+                             if(Amount=="")
+                             {
+                                  alert("Please Enter Loan Installment Amount");
+                                  return false;
+                             }
+                                          if(Amount.length<4)
+                                          {
+                                                alert("Please Enter Minimum 4 Number");
+                                                return false;
+                                          }
+                                          if(Amount.length>10)
+                                          {
+                                                alert("Please Enter Maximum 10 Number");
+                                                return false;
+                                          }
+                                          if(Amount.match(text))
+                                          {
+                                              true;
+                                          }
+                                          else
+                                          {
+                                              alert("Please Enter Only Number");
+                                              return false;
+                                          }
+                                if(Idate=="")
+                                {
+                                      alert("Please Enter Installment Date");
+                                      return false;
+                                }
+
+                            if(Total=="")
+                             {
+                                  alert("Please Enter Total Installment Amount");
+                                  return false;
+                             }
+                                          if(Total.length<4)
+                                          {
+                                                alert("Please Enter Minimum 4 Number");
+                                                return false;
+                                          }
+                                          if(Total.length>10)
+                                          {
+                                                alert("Please Enter Maximum 10 Number");
+                                                return false;
+                                          }
+                                          if(Total.match(text))
+                                          {
+                                              true;
+                                          }
+                                          else
+                                          {
+                                              alert("Please Enter Only Number");
+                                              return false;
+                                          }
+
+                         }
+              </script>
+              <form role="form" action="Loan Installment Details.php" method="POST" onsubmit="return validation()">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Loan Approvel Id</label>
+                    <?php
+                                                $con=mysqli_connect('localhost','root','','samaj_db');
+                                                $rs=mysqli_query($con,"SELECT *FROM loan_approval");
+                                             ?>
+                                             <select name="LA_ID"> 
+                                             <option value=0>--select--</option>
+                                             <?php
+                                             while($row=mysqli_fetch_assoc($rs))
+                                                {
+                                                     echo "<option value='".$row["LA_ID"]."'>".$row["LA_ID"]."</option>";
+                                                }
+                                                 ?>
+                                             </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Member Id</label>
+                    <?php
+                         $con=mysqli_connect('localhost','root','','samaj_db');
+                         $rs=mysqli_query($con,"SELECT `MEM_ID`,concat(convert(`MEM_ID`, char),\"-\", `MEM_NAME`) as member FROM `member_management`");
+                     ?>
+                     <select name="member"> 
+                     <option value=0>--select--</option>
+                      <?php
+                       while($row=mysqli_fetch_assoc($rs))
+                         {
+                            echo "<option value='".$row["MEM_ID"]."'>".$row["member"]."</option>";
+                         }
+                        ?>
+                       </select>           
+                  </div>
+                  <div class="form-group">
+                    <label>Installment Amount</label>
+                    <input type="text" class="form-control" name="installment_amount" id="amount" placeholder="Enter Installment Amount">
+                  </div>
+                  <div class="form-group">
+                    <label>Installment Date </label>
+                    <input type="date" class="form-control" name="installment_date" id="idate" > 
+                  </div>
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" class="form-control" name="total" id="to" placeholder="Total">
+                  </div>
+                  <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                  <button type="reset" class="btn btn-primary">Cancel</button>
+                 <a href="installment_view.php"  class="btn btn-primary">view</a>
+                </div>
+              </form>
+            </div>
+            <?php
+                if(isset($_POST['submit']))
+                {
+                    $LA_ID=$_POST['LA_ID'];
+                    $MEM_NAME=$_POST['member'];
+                    $Installment_Amount=$_POST['installment_amount'];
+                    $Installment_Date=$_POST['installment_date'];
+                    $Total=$_POST['total'];
+                    $con=mysqli_connect('localhost','root','','samaj_db');
+                    $qr="INSERT INTO `loan_installment_details`(`LA_ID`, `MEM_ID`, `INSTALLMENT_DATE`, `INSTALLMENT_AMOUNT`, `TOTAL`) VALUES ('$LA_ID','$MEM_NAME','$Installment_Date','$Installment_Amount','$Total')";
+                    $run=mysqli_query($con,$qr);
+                    if($run==TRUE)
+                    {
+                        echo "<script>alert('Loan Installment Pay')</script>";
+                    }
+                    else
+                    {
+                        echo "<script>alert('Loan Installment Does Not Pay')</script>";
+                    }
+                }
+        ?>
+<?php
+include "footer.php";
+ ?>

@@ -1,0 +1,82 @@
+*
+{
+    margin:0;
+    padding: 0;
+}
+body
+{
+    background:url(nature.jpg);
+    background-size: cover;
+    background-position: center;
+}
+.admin
+{
+    width:380px;
+    padding:50px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    font-size: 20px;
+    transform:translate(-50%,-50%);
+    text-align: center;
+    background:rgba(0,0,0,0.2);
+}
+.admin h1
+{
+    color:#85034B;
+}
+.admin .email
+{
+    background: none;
+    display: block; 
+    margin:25px auto;
+    text-align: center;
+    border:3px solid #039384;
+    padding:15px;
+    width:300px;
+    font-size: 18px;
+    color : #100007;
+    border-radius: 30px;    
+}
+.admin .password
+{
+    background: none;
+    display: block;
+    margin:25px auto;
+    text-align: center;
+    border:3px solid #039384;
+    padding:15px;
+    width:300px;
+    font-size: 18px;
+    color:#0E0000;
+    border-radius: 30px;
+}
+.admin .email:focus
+{
+    width:340px;
+    border-color: #F90404;
+}
+.admin .password:focus
+{
+    width:340px;
+    border-color: #F90404;
+}
+.admin .Submit
+{
+    background: none;
+    display: block;
+    margin:25px auto;
+    text-align: center;
+    border:3px solid #BF04A1;
+    padding:12px;
+    width:160px;
+    font-size: 18px;    
+    border-radius: 30px;
+    color:gray;
+    cursor: pointer; 
+}
+.admin .Submit:hover
+{
+    background: #BF04A1;
+}
+
